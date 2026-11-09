@@ -1,0 +1,23 @@
+name: deadline-guard
+version: 0.1.7
+description: >
+  Hermes plugin that reads a local markdown deadlines table, warns before founder-only
+  steps, and refuses submitted status without an http(s) receipt link.
+author: Snedz
+license: MIT
+homepage: https://github.com/Snedz/hermes-deadline-guard
+manifest_version: 1
+requires_hermes: ">=0.21.4"
+kind: standalone
+provides_tools:
+  - check_deadlines
+  - next_founder_steps
+  - propose_status_update
+  - deadline_guard_cron
+provides_hooks: []
+requires_env: []
+config_schema:
+  deadlines_path:
+    type: string
+    default: examples/hackathon-deadlines.md
+    description: Path to the markdown deadlines table (local file read only; no network)
