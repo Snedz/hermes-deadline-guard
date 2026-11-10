@@ -22,6 +22,14 @@ hermes plugins validate /path/to/hermes-deadline-guard --install-deps
 
 Set `deadlines_path` in plugin config to your table (absolute path or relative to the plugin directory). Empty config falls back to `examples/hackathon-deadlines.md`; missing files return a clear `deadlines_path` hint in tool JSON.
 
+## New: `verify` on Otari
+
+Re-read every open row's official page through the Otari gateway and flag deadlines that moved or closed. See **[OTARI.md](./OTARI.md)**.
+
+```bash
+OTARI_API_KEY=tk-... OTARI_MODELS=<models> python3 verify_cli.py --deadlines examples/real-rows-2026-11-10.md
+```
+
 ## Tools
 
 | Tool | Purpose |
