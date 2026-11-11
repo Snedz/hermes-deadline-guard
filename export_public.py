@@ -13,13 +13,12 @@ ROOT = Path(__file__).resolve().parent
 
 # Kitchen-only paths (stay in private staging; omit from public copy).
 KITCHEN_ONLY_REL = (
-    "FOUNDER_STEPS.md",
     "FOUNDER_HANDOFF.md",
     "JUDGE.md",
     "DEMO_SCRIPT.md",
+    "DEMO_VIDEO.md",
     "VIDEO_BEATS.md",
     "catalog_pr_pack.py",
-    "readme_quickstart.py",
     "judge_path.py",
     "tests/test_judge_path.py",
     "plugin-catalog",
@@ -61,6 +60,8 @@ def iter_public_files() -> list[Path]:
         if rel.parts and rel.parts[0] in {".git", "__pycache__"}:
             continue
         if rel.parts and rel.parts[0] in KITCHEN_ONLY_REL:
+            continue
+        if rel.parts and rel.parts[0] == "demo":
             continue
         if any(rel.as_posix().startswith(prefix) for prefix in KITCHEN_ONLY_REL):
             continue

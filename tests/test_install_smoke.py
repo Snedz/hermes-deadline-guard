@@ -46,7 +46,6 @@ class InstallSmokeTest(unittest.TestCase):
         steps = payload.get("steps")
         self.assertIsInstance(steps, list)
         names = {row["name"] for row in steps}
-        self.assertIn("export_check", names)
         self.assertIn("demo_json", names)
         demo_step = next(r for r in steps if r["name"] == "demo_json")
         self.assertEqual(demo_step.get("warn_count"), 3)

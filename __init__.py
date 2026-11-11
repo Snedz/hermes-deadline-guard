@@ -2,11 +2,31 @@
 
 from __future__ import annotations
 
+import importlib.util
 import logging
 from pathlib import Path
 
-import schemas
-import tools
+
+def _import_sibling(name: str):
+    if __package__:
+        try:
+            return importlib.import_module(f".{name}", __package__)
+        except ModuleNotFoundError:
+            pass
+    try:
+        return importlib.import_module(name)
+    except ModuleNotFoundError:
+        mod_path = Path(__file__).resolve().parent / f"{name}.py"
+        spec = importlib.util.spec_from_file_location(f"_deadline_guard_{name}", mod_path)
+        if spec is None or spec.loader is None:
+            raise
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+
+schemas = _import_sibling("schemas")
+tools = _import_sibling("tools")
 
 LOG = logging.getLogger(__name__)
 

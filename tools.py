@@ -3,12 +3,34 @@
 from __future__ import annotations
 
 import datetime as dt
+import importlib.util
 import json
 from pathlib import Path
 from typing import Any, Callable
 
-import cron as cron_mod
-import parser as pg
+
+def _import_sibling(name: str):
+    if __package__:
+        try:
+            return importlib.import_module(f".{name}", __package__)
+        except ModuleNotFoundError:
+            pass
+    if name != "parser":
+        try:
+            return importlib.import_module(name)
+        except ModuleNotFoundError:
+            pass
+    mod_path = Path(__file__).resolve().parent / f"{name}.py"
+    spec = importlib.util.spec_from_file_location(f"_deadline_guard_{name}", mod_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load {mod_path}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+cron_mod = _import_sibling("cron")
+pg = _import_sibling("parser")
 
 DEFAULT_REL = "examples/hackathon-deadlines.md"
 

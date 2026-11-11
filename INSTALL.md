@@ -10,7 +10,7 @@ From the plugin root (directory containing `plugin.yaml`):
 python3 install_smoke.py
 ```
 
-Expect: `install_smoke: ok (...)` and exit code **0**. This copies the public file set into a temp directory, runs unit tests, `manifest_lint`, `export_public.py --check` (leak scan on the staged tree), and the golden `demo_cli.py --json` path.
+Expect: `install_smoke: ok (...)` and exit code **0**. This copies the public file set into a temp directory, runs unit tests, `manifest_lint`, and the golden `demo_cli.py --json` path.
 
 Machine-readable output:
 
@@ -52,5 +52,3 @@ Empty or whitespace `deadlines_path` in config falls back to `examples/hackathon
 ## Walkthrough
 
 Step-by-step demo replay: **[DEMO.md](./DEMO.md)**.
-
-Kitchen-only (not in the public export): `python3 readme_quickstart.py` reruns the manual steps from this file and **README.md** in one shot.

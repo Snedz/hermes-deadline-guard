@@ -33,7 +33,7 @@ Set `deadlines_path` in plugin config to your table (absolute path or relative t
 
 ## Demo (judges)
 
-**[INSTALL.md](./INSTALL.md)** — one-command verify. Step-by-step replay: **[DEMO.md](./DEMO.md)**.
+**[INSTALL.md](./INSTALL.md)** — one-command verify. Step-by-step replay: **[DEMO.md](./DEMO.md)**. Kitchen **&lt;90 s video:** see **DEMO_VIDEO.md** and `bash demo/run_demo.sh` (not in the public export).
 
 ```bash
 python3 install_smoke.py
@@ -53,7 +53,6 @@ python3 manifest_lint.py
 python3 catalog_lint.py    # kitchen catalog YAML; skips with exit 0 on public clone (no plugin-catalog/)
 python3 sync_lint.py       # plugin.yaml version/tools must match catalog draft
 python3 export_public.py --check   # forbidden kitchen strings + public doc link scan
-python3 readme_quickstart.py       # kitchen only — runs README/INSTALL manual steps in one shot
 ```
 
 ## Table format

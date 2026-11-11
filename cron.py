@@ -3,11 +3,28 @@
 from __future__ import annotations
 
 import datetime as dt
+import importlib.util
 import os
 import sys
 from pathlib import Path
 
-import parser as pg
+
+def _load_parser():
+    if __package__:
+        try:
+            return importlib.import_module(".parser", __package__)
+        except ModuleNotFoundError:
+            pass
+    mod_path = Path(__file__).resolve().parent / "parser.py"
+    spec = importlib.util.spec_from_file_location("_deadline_guard_parser", mod_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"cannot load {mod_path}")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+pg = _load_parser()
 
 WRAPPER = '''#!/usr/bin/env python3
 """Generated deadline-guard daily check (stdlib only)."""

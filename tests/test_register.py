@@ -65,6 +65,20 @@ class RegisterTest(unittest.TestCase):
         data = json.loads(raw)
         self.assertTrue(data["ok"])
 
+    def test_register_without_plugin_root_on_sys_path(self) -> None:
+        """Matches hermes plugins validate capability probe (spec_from_file_location without sys.path)."""
+        saved_path = list(sys.path)
+        saved_mods = {k: sys.modules.pop(k) for k in ("schemas", "tools", "cron", "parser") if k in sys.modules}
+        try:
+            sys.path = [p for p in sys.path if Path(p).resolve() != ROOT.resolve()]
+            plugin = _load_plugin()
+            ctx = _FakeCtx()
+            plugin.register(ctx)
+            self.assertEqual({t[0] for t in ctx.tools}, set(schemas.TOOLS.keys()))
+        finally:
+            sys.path = saved_path
+            sys.modules.update(saved_mods)
+
 
 if __name__ == "__main__":
     unittest.main()

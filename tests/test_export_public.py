@@ -20,7 +20,6 @@ class ExportPublicTest(unittest.TestCase):
         self.assertIn("plugin.yaml", names)
         self.assertIn("README.md", names)
         self.assertNotIn("FOUNDER_HANDOFF.md", names)
-        self.assertNotIn("FOUNDER_STEPS.md", names)
 
     def test_no_kitchen_leaks_in_public_files(self) -> None:
         paths = export_public.iter_public_files()

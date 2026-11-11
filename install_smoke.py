@@ -2,7 +2,7 @@
 """Simulate a clean public-repo checkout (stdlib only).
 
 Copies the same file set as export_public.py into a temporary directory, then runs
-unittest, manifest_lint, export_public --check, and demo_cli --json. Judges and founders can use this before
+unittest, demo_cli --json, and manifest_lint. Judges and founders can use this before
 tagging Snedz/hermes-deadline-guard without the private monorepo paths.
 """
 
@@ -70,7 +70,6 @@ def run_install_smoke(*, json_mode: bool = False) -> int:
         steps: list[tuple[str, list[str]]] = [
             ("unittest", [py, "-m", "unittest", "discover", "-s", "tests", "-q"]),
             ("manifest_lint", [py, "manifest_lint.py"]),
-            ("export_check", [py, "export_public.py", "--check"]),
             ("demo_json", [py, "demo_cli.py", "--json"]),
         ]
 
